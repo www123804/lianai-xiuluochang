@@ -1,0 +1,102 @@
+
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>重生之恋爱修罗场系统</title>
+    <style>
+        body { font-family: "Microsoft YaHei", sans-serif; background-color: #111; color: #f0f0f0; padding: 20px; }
+        .game-box { max-width: 600px; margin: auto; background: #222; padding: 20px; border-radius: 10px; }
+        .option { margin-top: 10px; padding: 10px; background: #333; border-radius: 5px; cursor: pointer; }
+        .option:hover { background: #444; }
+        #status { margin-top: 20px; font-size: 14px; color: #ccc; }
+    </style>
+</head>
+<body>
+<div class="game-box">
+    <h2>《重生之恋爱修罗场系统》</h2>
+    <div id="story">
+        【检测到宿主生命终止，系统启动中……绑定成功】<br>
+        【你获得了重生机会与“恋爱修罗场系统”】<br><br>
+        你醒来，发现自己回到了七年前，宿舍还未被拆，白月光还活着……<br><br>
+        你现在要做的第一件事是？
+    </div>
+    <div id="options"></div>
+    <div id="status">魅力值：10 | 智力：10 | 修罗场值：0</div>
+</div>
+
+<script>
+let charm = 10;
+let intelligence = 10;
+let drama = 0;
+
+const story = document.getElementById("story");
+const options = document.getElementById("options");
+const status = document.getElementById("status");
+
+function updateStatus() {
+    status.innerText = `魅力值：${charm} | 智力：${intelligence} | 修罗场值：${drama}`;
+}
+
+function showOptions(texts) {
+    options.innerHTML = '';
+    texts.forEach(opt => {
+        const div = document.createElement("div");
+        div.className = "option";
+        div.innerText = opt.text;
+        div.onclick = () => {
+            story.innerHTML = opt.result;
+            if (opt.charm) charm += opt.charm;
+            if (opt.intelligence) intelligence += opt.intelligence;
+            if (opt.drama) drama += opt.drama;
+            updateStatus();
+            if (opt.next) showOptions(opt.next);
+            else options.innerHTML = '';
+        };
+        options.appendChild(div);
+    });
+}
+
+showOptions([
+    {
+        text: "A：主动联系白倾音",
+        result: "你拨通了她的电话，她沉默了一会，冷冷道：“林修，现在想起我了？”修罗场值 +5。",
+        drama: 5,
+        next: [
+            {
+                text: "向她道歉，说想弥补过错",
+                result: "“呵，有机会再说吧。”她挂断了电话。你叹了口气，决定先查看系统面板。",
+                intelligence: 2
+            }
+        ]
+    },
+    {
+        text: "B：先查看系统面板",
+        result: "系统界面展开：【当前任务：攻略白倾音，解锁隐藏剧情】你发现还有两个支线女主未解锁。",
+        intelligence: 3,
+        next: [
+            {
+                text: "开启“女主图鉴”",
+                result: "你看到：白倾音（冰山师姐）、钟溪鹿（青梅竹马）、椿欲晚（校花转学生）。",
+                charm: 1
+            }
+        ]
+    },
+    {
+        text: "C：去找钟溪鹿赔罪",
+        result: "你出现在她的教室门口，她一脸惊讶：“你怎么突然来找我？”魅力值 +3。",
+        charm: 3,
+        next: [
+            {
+                text: "真诚告白，表示重来一次会珍惜她",
+                result: "钟溪鹿脸红了：“你今天……怎么怪怪的？”她没有拒绝你。",
+                charm: 2,
+                drama: 2
+            }
+        ]
+    }
+]);
+</script>
+</body>
+</html>
