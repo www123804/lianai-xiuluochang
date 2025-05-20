@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+  <meta charset="UTF-8" />
+  <title>520，我爱你</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <style>
+    html, body {
+      margin: 0;
+      padding: 0;
+      background: linear-gradient(to top right, #ff9a9e, #fad0c4);
+      overflow: hidden;
+      font-family: "Helvetica Neue", sans-serif;
+      text-align: center;
+    }
+
+    h1 {
+      color: white;
+      margin-top: 60px;
+      font-size: 48px;
+      text-shadow: 2px 2px 5px #f66;
+    }
+
+    .btn {
+      margin-top: 40px;
+      padding: 15px 30px;
+      background: #ff4d6d;
+      color: white;
+      border: none;
+      border-radius: 25px;
+      font-size: 20px;
+      cursor: pointer;
+      box-shadow: 0 4px 10px rgba(0,0,0,0.2);
+    }
+
+    .btn:hover {
+      background: #ff1e4d;
+    }
+
+    .heart {
+      width: 20px;
+      height: 20px;
+      background: red;
+      position: absolute;
+      top: -20px;
+      transform: rotate(45deg);
+      animation: fall linear infinite;
+    }
+
+    .heart::before,
+    .heart::after {
+      content: "";
+      width: 20px;
+      height: 20px;
+      background: red;
+      position: absolute;
+      border-radius: 50%;
+    }
+
+    .heart::before {
+      top: -10px;
+      left: 0;
+    }
+
+    .heart::after {
+      left: -10px;
+      top: 0;
+    }
+
+    @keyframes fall {
+      0% {
+        transform: translateY(-20px) rotate(45deg);
+      }
+      100% {
+        transform: translateY(100vh) rotate(720deg);
+      }
+    }
+
+    .message {
+      font-size: 36px;
+      color: white;
+      margin-top: 40px;
+      display: none;
+      animation: fadeIn 2s ease-in-out forwards;
+    }
+
+    @keyframes fadeIn {
+      0% { opacity: 0; transform: scale(0.5); }
+      100% { opacity: 1; transform: scale(1); }
+    }
+  </style>
+</head>
+<body>
+  <h1>亲爱的，520快乐！</h1>
+  <button class="btn" onclick="showLove()">点我一下</button>
+  <div class="message" id="loveMessage">我爱你，从心动到古稀！</div>
+
+  <audio id="bgm" autoplay loop>
+    <source src="https://cdn.pixabay.com/audio/2022/03/25/audio_911312f670.mp3" type="audio/mpeg">
+  </audio>
+
+  <script>
+    // 飘落的爱心
+    function createHeart() {
+      const heart = document.createElement("div");
+      heart.className = "heart";
+      heart.style.left = Math.random() * 100 + "vw";
+      heart.style.animationDuration = (Math.random() * 3 + 2) + "s";
+      document.body.appendChild(heart);
+      setTimeout(() => heart.remove(), 5000);
+    }
+    setInterval(createHeart, 300);
+
+    // 弹出表白文字
+    function showLove() {
+      const msg = document.getElementById("loveMessage");
+      msg.style.display = "block";
+      alert("亲爱的：愿意和我一直一直在一起吗？");
+    }
+  </script>
+</body>
+</html>
